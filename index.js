@@ -40,7 +40,7 @@ io.on("connection", (socket) => {
   socket.on("player-key-down", (data) => {
     const movementData = {};
     movementData.socId = data.socId;
-    if (!players[data.socId].keyDown) {
+    if (players[data.socId].keyDown === undefined) {
       players[data.socId].keyDown = {
         vertical: null,
         horizontal: null,
