@@ -2,13 +2,13 @@ const express = require("express");
 const path = require("path");
 const cors = require("cors");
 const http = require("http");
-const url = require("./secrets");
+const dotenv = require("dotenv");
 const registerAppRoutes = require("./api");
 const MongoClient = require("mongodb").MongoClient;
 const { nanoid } = require("nanoid");
 const checkForAgreements = require("./utils/requestHandler");
 const PORT = process.env.PORT || 5000;
-
+dotenv.config();
 const app = express();
 const server = http.createServer(app);
 const io = require("socket.io")(server, {
@@ -143,7 +143,7 @@ app.use("/characters", express.static(path.resolve("characters")));
 app.use("/thumbnails", express.static(path.resolve("thumbnails")));
 app.use(express.json());
 
-const client = new MongoClient(url, {
+const client = new MongoClient(process.env.MONGO_URL, {
 	useNewUrlParser: true,
 	useUnifiedTopology: true,
 });
